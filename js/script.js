@@ -19,6 +19,8 @@ let secondUserScore = 0;
 let firstUserTurn = true;
 
 const checkWin = (array) => {
+    //Find the intersection between the winCombinations array and user moves
+    //If the intersection array have 3 elements, the player would win
     for(let i =0; i < winComb.length; i++){
         if(intersection(winComb[i], array).length == 3){
             return true;
@@ -28,14 +30,24 @@ const checkWin = (array) => {
 }
 
 function showCoin(){
+    //If the cell is clicked, stop
     if(isClicked.includes(this.id)){
         return
     }
 
+    //Check which user won and add score
     if(checkWin(userOne)){
+        firstUserScore++;
+        userOneScore.textContent = firstUserScore;
+
+    }
+    else if(checkWin(userTwo)){
+        secondUserScore++;
+        userTwoScore.textContent = secondUserScore;
 
     }
 
+    //Add image depending on the users' moves
     if(firstUserTurn){
         this.innerHTML = '<img src="images/red.png" alt="red coin">'
         firstUserTurn = false;
@@ -44,12 +56,30 @@ function showCoin(){
         counter++;
         return
     }
+
     firstUserTurn = true;
+    this.innerHTML = '<img src="images/yellow.png" alt="red coin">'
+
+    //Add cell id to isClicked array
     isClicked.push(this.id);
     userTwo.push(this.id);
-    this.innerHTML = '<img src="images/yellow.png" alt="red coin">'
-    counter ++;
 }
 
+const intersection = (arr1, arr2) => {
+    // converting into Set
+    const setA = new Set(arr1);
+    const setB = new Set(arr2);
+
+    let intersectionResult = [];
+
+    //Find intersection between the two arrays
+    for (let i of setB) {
+        if (setA.has(i)) {
+            intersectionResult.push(i);
+        }   
+    }
+    
+    return intersectionResult;
+}
 
 cells.forEach(cell => cell.addEventListener('click', showCoin))
