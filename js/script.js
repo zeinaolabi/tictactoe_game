@@ -35,25 +35,18 @@ function showCoin(){
         return
     }
 
-    //Check which user won and add score
-    if(checkWin(userOne)){
-        firstUserScore++;
-        userOneScore.textContent = firstUserScore;
-
-    }
-    else if(checkWin(userTwo)){
-        secondUserScore++;
-        userTwoScore.textContent = secondUserScore;
-
-    }
-
     //Add image depending on the users' moves
     if(firstUserTurn){
         this.innerHTML = '<img src="images/red.png" alt="red coin">'
         firstUserTurn = false;
         isClicked.push(this.id);
         userOne.push(this.id);
-        counter++;
+
+        if(checkWin(userOne)){
+            firstUserScore++;
+            userOneScore.textContent = firstUserScore;
+            restartGame();
+        }
         return
     }
 
@@ -63,6 +56,13 @@ function showCoin(){
     //Add cell id to isClicked array
     isClicked.push(this.id);
     userTwo.push(this.id);
+
+    //Check which user won and add score
+    if(checkWin(userTwo)){
+        secondUserScore++;
+        userTwoScore.textContent = secondUserScore;
+        restartGame();
+    }
 }
 
 const intersection = (arr1, arr2) => {
@@ -81,5 +81,12 @@ const intersection = (arr1, arr2) => {
     
     return intersectionResult;
 }
+
+const restartGame = () => {
+    cells.forEach(cell => cell.innerHTML = "")
+    userOne = []
+    userTwo = []
+}
+
 
 cells.forEach(cell => cell.addEventListener('click', showCoin))
