@@ -82,11 +82,12 @@ const intersection = (arr1, arr2) => {
     return intersectionResult;
 }
 
+//Empty arrays and cells
 const restartGame = () => {
     cells.forEach(cell => cell.innerHTML = "")
     userOne = []
     userTwo = []
+    isClicked = []
 }
-
 
 cells.forEach(cell => cell.addEventListener('click', showCoin))
