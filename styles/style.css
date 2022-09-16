@@ -22,6 +22,12 @@ body{
 
 .cell{
     width: 15vw;
-    height: 15vw;
-    margin: 5px
+    height: 26vh;
+    margin: 5px;
+}
+
+img{
+    width: 14vw;
+    height: 25vh;
+    padding: 8px;
 }
