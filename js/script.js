@@ -45,8 +45,10 @@ function showCoin(){
         if(checkWin(userOne)){
             firstUserScore++;
             userOneScore.textContent = firstUserScore;
-            restartGame();
+            setTimeout(restartGame, 100);
         }
+
+        draw();
         return
     }
 
@@ -61,8 +63,10 @@ function showCoin(){
     if(checkWin(userTwo)){
         secondUserScore++;
         userTwoScore.textContent = secondUserScore;
-        restartGame();
+        setTimeout(restartGame,100);
     }
+
+    draw();
 }
 
 const intersection = (arr1, arr2) => {
@@ -88,6 +92,14 @@ const restartGame = () => {
     userOne = []
     userTwo = []
     isClicked = []
+}
+
+const draw = () => {
+    //If all cells are clicked, stop
+
+    if(isClicked.length == 9){
+        setTimeout(restartGame, 500);
+    }
 }
 
 cells.forEach(cell => cell.addEventListener('click', showCoin))
